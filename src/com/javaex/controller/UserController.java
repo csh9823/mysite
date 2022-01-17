@@ -49,10 +49,7 @@ public class UserController extends HttpServlet {
 			UserVo authVo = userDao.getUser(id, password);//맞는 사용자
 			//System.out.println(authVo.toString());
 			
-			// 세션의 어트리뷰트의 authUser이라는
-			// 공간에 로그인정보를 담고 관리한다.
-			// 로그인 되어 있지 않으면 null, 로그인 되어 있으면 값이 있음
-			// 모든 코드마다 이 값을 읽게 만들어주기
+		
 			//System.out.println(userDao.insert(authVo)) +"건이 실행되었습니다.");
 			if(authVo == null) {
 				System.out.println("로그인 실패");
@@ -60,8 +57,8 @@ public class UserController extends HttpServlet {
 				
 			} else {
 				System.out.println("로그인 성공");
-				HttpSession session = request.getSession(); //지금 세션 값을 줘
-				session.setAttribute("authUser", authVo);//호출할 이름, 넣을 변수
+				HttpSession session = request.getSession(); // 세션 불러오기
+				session.setAttribute("authUser", authVo);//이름, 넣을 변수 세션에 입력
 				
 				WebUtil.redirect(request, response, "/mysite/main");
 			}
@@ -78,7 +75,7 @@ public class UserController extends HttpServlet {
 			UserVo authUser = (UserVo)session.getAttribute("authUser");
 			
 			int no = authUser.getNo();
-			//세션에 넘버를 변수에 저장
+			//세션값에 넘 변수를 저장한다
 			
 			UserDao userDao = new UserDao();
 			UserVo userVo = userDao.getUser(no);
@@ -102,8 +99,8 @@ public class UserController extends HttpServlet {
 			authVo.setNo(userVo.getNo());
 			authVo.setName(userVo.getName());
 			
-			HttpSession session = request.getSession(); //지금 세션 값을 줘
-			session.setAttribute("authUser", authVo);//호출할 이름, 넣을 변수
+			HttpSession session = request.getSession(); // 세션 불러오기
+			session.setAttribute("authUser", authVo); //이름, 넣을 변수 세션에 입력
 			System.out.println(authVo);
 			
 			WebUtil.redirect(request, response, "/mysite/main");

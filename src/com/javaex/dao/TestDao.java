@@ -6,7 +6,7 @@ public class TestDao {
 
 	public static void main(String[] args) {
 
-		UserVo userVo = new UserVo("ccc", "1234", "강호동", "male");
+		UserVo userVo = new UserVo("ccc", "1234", "김민수", "male");
 
 		UserDao userDao = new UserDao();
 		
