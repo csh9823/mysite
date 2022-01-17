@@ -24,21 +24,21 @@ public class BoardController extends HttpServlet {
 		System.out.println("/board");
 		String act = request.getParameter("action");
 
-		if ("list".equals(act)) {// 게시글 리스트
+		if ("list".equals(act)) {
 			System.out.println("action > list");
 
 			List<BoardVo> boardList = new BoardDao().getList();
-
+			// 글 리스트
 			request.setAttribute("boardList", boardList);
 
 			WebUtil.forward(request, response, "/WEB-INF/views/board/list.jsp");
-		} else if ("writeForm".equals(act)) {// 게시글 쓰기 폼
+		} else if ("writeForm".equals(act)) {
 			System.out.println("action > writeForm");
-
+			// 쓰기 폼
 			WebUtil.forward(request, response, "/WEB-INF/views/board/writeForm.jsp");
-		} else if ("write".equals(act)) {// 게시글 쓰기
+		} else if ("write".equals(act)) {
 			System.out.println("action > write");
-
+			// 글 쓰기
 			HttpSession session = request.getSession();
 
 			UserVo authUser = (UserVo) session.getAttribute("authUser");
@@ -51,9 +51,9 @@ public class BoardController extends HttpServlet {
 			new BoardDao().boardInsert(boardVo);
 
 			WebUtil.redirect(request, response, "/mysite/board?action=list");
-		} else if ("read".equals(act)) {// 게시글 읽기 폼
+		} else if ("read".equals(act)) {
 			System.out.println("action > read");
-
+			// 글 읽기 
 			int no = Integer.parseInt(request.getParameter("no"));
 
 			BoardVo boardVo = new BoardDao().getBoard(no);
@@ -61,26 +61,26 @@ public class BoardController extends HttpServlet {
 			request.setAttribute("boardVo", boardVo);
 
 			WebUtil.forward(request, response, "/WEB-INF/views/board/read.jsp");
-		} else if ("delete".equals(act)) {// 게시글 삭제
+		} else if ("delete".equals(act)) {
 			System.out.println("action > delete");
-
+			// 글 삭제
 			int num = Integer.parseInt(request.getParameter("no"));
 
 			new BoardDao().boardDelete(num);
 
 			WebUtil.redirect(request, response, "/mysite/board?action=list");
-		} else if ("modifyForm".equals(act)) {// 게시글 수정 폼
+		} else if ("modifyForm".equals(act)) {
 			System.out.println("action > modifyForm");
-
+			// 글 수정 폼
 			int no = Integer.parseInt(request.getParameter("no"));
 
 			BoardVo boardVo = new BoardDao().getBoard(no);
 			request.setAttribute("boardVo", boardVo);
 
 			WebUtil.forward(request, response, "/WEB-INF/views/board/modifyForm.jsp");
-		} else if ("modify".equals(act)) {// 게시글 수정
+		} else if ("modify".equals(act)) {
 			System.out.println("action > modify");
-
+			// 글 수정
 			int no = Integer.parseInt(request.getParameter("no"));
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
