@@ -109,12 +109,12 @@ public class BoardDao {
 		try {
 			// SQL문 준비
 			query = "";
-			query += " select   us.name name, ";
-			query += "          bo.no no, ";
-			query += "          bo.title title, ";
-			query += "          bo.content content, ";
-			query += "          bo.hit hit, ";
-			query += "          to_char(bo.reg_date, 'YY-MM-DD HH:MI') reg_date, ";
+			query += " select   us.name, ";
+			query += "          bo.no , ";
+			query += "          bo.title, ";
+			query += "          bo.content, ";
+			query += "          bo.hit, ";
+			query += "          to_char(bo.reg_date, 'YY-MM-DD HH:MI'), ";
 			query += "          bo.user_no user_no";
 			query += " from     board bo, users us ";
 			query += " where    bo.user_no = us.no ";
@@ -159,7 +159,7 @@ public class BoardDao {
 
 			// 결과
 			System.out.println("[" + count + "건 실행되었습니다.(Board)]");
-
+			
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		}
