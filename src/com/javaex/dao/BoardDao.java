@@ -52,8 +52,8 @@ public class BoardDao {
 			System.out.println("error:" + e);
 		}
 	}
-	
-	//리스트
+
+	// 리스트
 	public List<BoardVo> getList() {
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
 
@@ -109,12 +109,12 @@ public class BoardDao {
 		try {
 			// SQL문 준비
 			query = "";
-			query += " select   us.name, ";
-			query += "          bo.no , ";
-			query += "          bo.title, ";
-			query += "          bo.content, ";
-			query += "          bo.hit, ";
-			query += "          to_char(bo.reg_date, 'YY-MM-DD HH:MI'), ";
+			query += " select   us.name name, ";
+			query += "          bo.no no, ";
+			query += "          bo.title title, ";
+			query += "          bo.content content, ";
+			query += "          bo.hit hit, ";
+			query += "          to_char(bo.reg_date, 'YY-MM-DD HH:MI') reg_date, ";
 			query += "          bo.user_no user_no";
 			query += " from     board bo, users us ";
 			query += " where    bo.user_no = us.no ";
@@ -159,7 +159,7 @@ public class BoardDao {
 
 			// 결과
 			System.out.println("[" + count + "건 실행되었습니다.(Board)]");
-			
+
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		}
@@ -232,7 +232,7 @@ public class BoardDao {
 		getConnection();
 
 		try {
-
+			
 			// SQL문 준비
 			String query = "";
 			query += " update board ";
@@ -260,4 +260,32 @@ public class BoardDao {
 		close();
 	}
 
-}
+	public void getUp(BoardVo boardVo) {
+		getConnection();
+
+		try {
+			String query = "";
+			// SQL문 준비
+			query = "";
+			query += " update  board ";
+			query += " set     hit = hit+1 ";
+			query += " where   user_no = ? ";
+
+			// 쿼리
+			pstmt = conn.prepareStatement(query);
+
+			// 바인딩
+			pstmt.setInt(1, boardVo.getHit());
+
+			// 실행
+			int count = pstmt.executeUpdate();
+
+			// 결과
+			System.out.println("[" + count + "건 실행되었습니다.(Board)]");
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+		close();
+	}
+}// 마지막 괄호

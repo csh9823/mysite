@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.javaex.dao.BoardDao;
+import com.javaex.dao.GuestbookDao;
 import com.javaex.util.WebUtil;
 import com.javaex.vo.BoardVo;
+import com.javaex.vo.GuestbookVo;
 import com.javaex.vo.UserVo;
 
 @WebServlet("/board")
@@ -57,10 +59,16 @@ public class BoardController extends HttpServlet {
 			int no = Integer.parseInt(request.getParameter("no"));
 
 			BoardVo boardVo = new BoardDao().getBoard(no);
-
+			
+			BoardDao dao  = new BoardDao();
+			BoardVo vo = new BoardVo(no);
+			
+			dao.getUp(vo);
 			request.setAttribute("boardVo", boardVo);
-
+			
+			
 			WebUtil.forward(request, response, "/WEB-INF/views/board/read.jsp");
+			
 		} else if ("delete".equals(act)) {
 			System.out.println("action > delete");
 			// 글 삭제

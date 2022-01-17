@@ -15,6 +15,13 @@ public class BoardVo {
 	public BoardVo() {
 
 	}
+	
+	
+	public BoardVo(int hit) {
+		this.hit = hit;
+	}
+
+
 	public BoardVo(String title, String content, int userNo) {
 		this.title = title;
 		this.content = content;
