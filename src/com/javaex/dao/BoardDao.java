@@ -141,25 +141,6 @@ public class BoardDao {
 
 				boardVo = new BoardVo(no, title, content, hit, regDate, userNo, name);
 			}
-
-			// SQL문 준비
-			query = "";
-			query += " update  board ";
-			query += " set     hit = hit+1 ";
-			query += " where   user_no = ? ";
-
-			// 쿼리
-			pstmt = conn.prepareStatement(query);
-
-			// 바인딩
-			pstmt.setInt(1, userNo);
-
-			// 실행
-			int count = pstmt.executeUpdate();
-
-			// 결과
-			System.out.println("[" + count + "건 실행되었습니다.(Board)]");
-
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		}
